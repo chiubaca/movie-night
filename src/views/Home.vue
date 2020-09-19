@@ -5,8 +5,14 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Home",
-};
+<script lang="ts">
+import { defineComponent, onMounted } from "vue";
+import { getMovies } from "../functions/useMovieAPI";
+export default defineComponent({
+  setup() {
+    onMounted(() => {
+      getMovies();
+    });
+  },
+});
 </script>
