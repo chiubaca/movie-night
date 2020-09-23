@@ -1,25 +1,29 @@
 <template>
   <div id="movie-card" class="w-1/2 md:w-1/4 lg:w-1/5">
-    <span v-if="selectedMovie" class="absolute bg-gray-900 text-white">
-      {{ movie.title }}
-    </span>
-    <label>
-      <input
-        id="scales"
-        v-model="selectedMovie"
-        type="checkbox"
-        name="scales"
-        class="absolute"
-        :value="movie.name"
-      />
+    <div id="mask" class="bg-red-700 relative m-4">
+      <label>
+        <h2
+          class="hover:text-white text-center absolute hover:bg-orange-600 hover:bg-opacity-50 w-full h-full text-transparent"
+        >
+          {{ movie.title }}
+        </h2>
 
-      <img
-        loading="lazy"
-        :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-        :alt="movie.title"
-        class=""
-      />
-    </label>
+        <img
+          loading="lazy"
+          :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+          :alt="movie.title"
+          class=""
+        />
+        <input
+          id="scales"
+          v-model="selectedMovie"
+          type="checkbox"
+          name="scales"
+          class="absolute bottom-0"
+          :value="movie.name"
+        />
+      </label>
+    </div>
   </div>
 </template>
 
