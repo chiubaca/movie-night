@@ -15,12 +15,10 @@
           class=""
         />
         <input
-          id="scales"
-          v-model="selectedMovie"
           type="checkbox"
-          name="scales"
+          :name="movie.title"
           class="absolute bottom-0"
-          :value="movie.name"
+          @click="handleClick"
         />
       </label>
     </div>
@@ -28,19 +26,32 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from "vue";
 import { Movie } from "../types";
 
 export default defineComponent({
   props: {
+    index: {
+      type: Number,
+      required: true,
+    },
     movie: {
       type: Object as PropType<Movie>,
       required: true,
     },
   },
-  setup() {
-    const selectedMovie = ref();
-    return { selectedMovie };
+  emits: ["select-movie", "deselect-movie"],
+  setup(props, { emit }) {
+    function handleClick(event: any): void {
+      if (event.target.checked) {
+        console.log("movie selected");
+        emit("select-movie", { [props.index]: props.movie });
+        return;
+      }
+      console.log("movie deselected");
+      emit("deselect-movie", { [props.index]: props.movie });
+    }
+    return { handleClick };
   },
 });
 </script>

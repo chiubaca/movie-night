@@ -5,7 +5,14 @@
       Find a movie to watch based on something you enjoyed recently
     </h2>
     <div id="movies-container" class="flex flex-wrap flex-1 justify-evenly">
-      <MovieCard v-for="(movie, key) in movieList" :key="key" :movie="movie" />
+      <MovieCard
+        v-for="(movie, key) in movieList"
+        :key="key"
+        :index="key"
+        :movie="movie"
+        @select-movie="handleSelectedMovie"
+        @deselect-movie="handleDeselectedMovie"
+      />
     </div>
   </div>
 </template>
@@ -15,15 +22,24 @@ import { defineComponent, onMounted } from "vue";
 import MovieCard from "../components/MovieCard.vue";
 import { getMovies, movieList } from "../functions/useMovieAPI";
 export default defineComponent({
+  name: "Films",
   components: {
     MovieCard,
   },
   setup() {
+    function handleSelectedMovie(payload: any): void {
+      console.log("checked movie", payload);
+    }
+
+    function handleDeselectedMovie(payload: any): void {
+      console.log("unchecked movie", payload);
+    }
+
     onMounted(() => {
       getMovies();
     });
 
-    return { movieList };
+    return { movieList, handleSelectedMovie, handleDeselectedMovie };
   },
 });
 </script>
