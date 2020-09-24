@@ -18,7 +18,7 @@
           type="checkbox"
           :name="movie.title"
           class="absolute bottom-0"
-          @click="handleClick"
+          @click="selected = !selected"
         />
       </label>
     </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { ref, defineComponent, PropType, watch } from "vue";
 import { Movie } from "../types";
 
 export default defineComponent({
@@ -42,18 +42,17 @@ export default defineComponent({
   },
   emits: ["select-movie", "deselect-movie"],
   setup(props, { emit }) {
-    function handleClick(event: any): void {
-      if (event.target.checked) {
-        console.log("movie selected");
+    const selected = ref(false);
+
+    watch(selected, (selected) => {
+      if (selected) {
         emit("select-movie", [props.index, props.movie]);
         return;
       }
-      console.log("movie deselected");
       emit("deselect-movie", [props.index, props.movie]);
-    }
-    return { handleClick };
+    });
+
+    return { selected };
   },
 });
 </script>
-
-<style scoped></style>
