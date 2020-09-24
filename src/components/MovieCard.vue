@@ -45,11 +45,11 @@ export default defineComponent({
     function handleClick(event: any): void {
       if (event.target.checked) {
         console.log("movie selected");
-        emit("select-movie", { [props.index]: props.movie });
+        emit("select-movie", [props.index, props.movie]);
         return;
       }
       console.log("movie deselected");
-      emit("deselect-movie", { [props.index]: props.movie });
+      emit("deselect-movie", [props.index, props.movie]);
     }
     return { handleClick };
   },
