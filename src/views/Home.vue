@@ -4,7 +4,7 @@
     <h2 class="text-center p-5">
       Find a movie to watch based on something you enjoyed recently
     </h2>
-    <span v-for="(movie, key) in selectedMovie" :key="key">
+    <span v-for="(movie, key) in selectedMovies" :key="key">
       {{ movie.original_title }}
     </span>
     <div id="movies-container" class="flex flex-wrap flex-1 justify-evenly">
@@ -24,22 +24,25 @@
 import { defineComponent, onMounted, ref } from "vue";
 import MovieCard from "../components/MovieCard.vue";
 import { getMovies, movieList } from "../functions/useMovieAPI";
+import { Movie } from "../types";
+
 export default defineComponent({
   name: "Films",
   components: {
     MovieCard,
   },
   setup() {
-    const selectedMovie = ref<any>({});
+    const selectedMovies = ref<{ [key: number]: Movie }>({});
 
-    function handleSelectedMovie(payload: any): void {
+    function handleSelectedMovie(payload: [number, Movie]): void {
       console.log("checked movie", payload);
-      selectedMovie.value[payload[0]] = payload[1];
+
+      selectedMovies.value[payload[0]] = payload[1];
     }
 
-    function handleDeselectedMovie(payload: any): void {
+    function handleDeselectedMovie(payload: [number, Movie]): void {
       console.log("unchecked movie", payload);
-      delete selectedMovie.value[payload[0]];
+      delete selectedMovies.value[payload[0]];
     }
 
     onMounted(() => {
@@ -50,7 +53,7 @@ export default defineComponent({
       movieList,
       handleSelectedMovie,
       handleDeselectedMovie,
-      selectedMovie,
+      selectedMovies,
     };
   },
 });
