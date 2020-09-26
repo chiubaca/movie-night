@@ -3,14 +3,22 @@ import axios from "axios";
 import { TrendingMovies, Movie } from "../types";
 
 const movieList = ref<Movie[]>([]);
-const API_KEY = process.env.VUE_APP_API_KEY;
+let baseURL: string;
+
+if (process.env.NODE_ENV === "development") {
+  console.log("Dev API", process.env.NODE_ENV);
+  baseURL = process.env.VUE_APP_DEV_API_BASE_URL;
+}
+if (process.env.NODE_ENV === "production") {
+  console.log("Prod API", process.env.NODE_ENV);
+  baseURL = `https://${document.location.hostname}/.netlify/functions`;
+}
 
 async function getMovies(): Promise<TrendingMovies> {
-  const trendingMovies = await axios.get(
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
-  );
+  console.log({ baseURL });
+  const trendingMovies = await axios.get(`${baseURL}/movies`);
 
-  console.log("got movies", trendingMovies.data);
+  console.log("got movies", trendingMovies);
   (trendingMovies.data as TrendingMovies).results.forEach((movie) => {
     movieList.value.push(movie);
   });
