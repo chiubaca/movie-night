@@ -5,6 +5,9 @@ import { TrendingMovies, Movie } from "../types";
 const movieList = ref<Movie[]>([]);
 let baseURL: string;
 
+/**
+ * Setup dev & prod base urls so that it works both locally and in Netlify
+ */
 if (process.env.NODE_ENV === "development") {
   console.log("Dev API", process.env.NODE_ENV);
   baseURL = process.env.VUE_APP_DEV_API_BASE_URL;
@@ -14,11 +17,12 @@ if (process.env.NODE_ENV === "production") {
   baseURL = `https://${document.location.hostname}/.netlify/functions`;
 }
 
+/**
+ * Get top 20 trending movies from MovieDB API
+ */
 async function getMovies(): Promise<TrendingMovies> {
-  console.log({ baseURL });
   const trendingMovies = await axios.get(`${baseURL}/movies`);
 
-  console.log("got movies", trendingMovies);
   (trendingMovies.data as TrendingMovies).results.forEach((movie) => {
     movieList.value.push(movie);
   });
