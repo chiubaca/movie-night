@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "ndev": "concurrently \"netlify dev\" \"tsc -p functions/tsconfig.json -w\" ",
-    "build": "vue-cli-service build",
+    "build": "tsc -p functions/tsconfig.json && vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
