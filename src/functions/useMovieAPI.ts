@@ -29,4 +29,13 @@ async function getMovies(): Promise<TrendingMovies> {
   return trendingMovies.data;
 }
 
-export { movieList, getMovies };
+/**
+ * Get movie recomendations
+ */
+
+async function getMovieRecomendation(): Promise<any> {
+  const recomendations = axios.get(`${baseURL}/movies-recomendations`);
+  return recomendations;
+}
+
+export { movieList, getMovies, getMovieRecomendation };

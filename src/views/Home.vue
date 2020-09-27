@@ -12,6 +12,12 @@
         @select-movie="handleSelectedMovie"
         @deselect-movie="handleDeselectedMovie"
       />
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4"
+        @click="getMovieRecomendation"
+      >
+        Recomend Me Some Movies!
+      </button>
     </div>
   </div>
 </template>
@@ -19,7 +25,11 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import MovieCard from "../components/MovieCard.vue";
-import { getMovies, movieList } from "../functions/useMovieAPI";
+import {
+  getMovies,
+  movieList,
+  getMovieRecomendation,
+} from "../functions/useMovieAPI";
 import { Movie } from "../types";
 
 export default defineComponent({
@@ -50,6 +60,7 @@ export default defineComponent({
       handleSelectedMovie,
       handleDeselectedMovie,
       selectedMovies,
+      getMovieRecomendation,
     };
   },
 });
