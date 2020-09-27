@@ -14,7 +14,7 @@
       />
       <button
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4"
-        @click="getMovieRecomendation"
+        @click="recomendMovies"
       >
         Recomend Me Some Movies!
       </button>
@@ -42,13 +42,20 @@ export default defineComponent({
 
     function handleSelectedMovie(payload: [number, Movie]): void {
       console.log("checked movie", payload);
-
       selectedMovies.value[payload[0]] = payload[1];
     }
 
     function handleDeselectedMovie(payload: [number, Movie]): void {
       console.log("unchecked movie", payload);
       delete selectedMovies.value[payload[0]];
+    }
+
+    function recomendMovies(): void {
+      const movieIds: number[] = [];
+      for (const key in selectedMovies.value) {
+        movieIds.push(selectedMovies.value[key].id);
+      }
+      getMovieRecomendation(movieIds);
     }
 
     onMounted(() => {
@@ -60,7 +67,7 @@ export default defineComponent({
       handleSelectedMovie,
       handleDeselectedMovie,
       selectedMovies,
-      getMovieRecomendation,
+      recomendMovies,
     };
   },
 });

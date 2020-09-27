@@ -33,8 +33,10 @@ async function getMovies(): Promise<TrendingMovies> {
  * Get movie recomendations
  */
 
-async function getMovieRecomendation(): Promise<any> {
-  const recomendations = axios.get(`${baseURL}/movies-recomendations`);
+async function getMovieRecomendation(movieIds: number[]): Promise<any> {
+  const recomendations = axios.post(`${baseURL}/movie-recomendations`, {
+    ids: movieIds,
+  });
   return recomendations;
 }
 
