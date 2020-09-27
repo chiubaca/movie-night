@@ -3,18 +3,39 @@ import axios from "axios";
 import { TrendingMovies, Movie } from "../types";
 
 const movieList = ref<Movie[]>([]);
-const API_KEY = process.env.VUE_APP_API_KEY;
+let baseURL: string;
 
+/**
+ * Setup dev & prod base urls so that it works both locally and in Netlify
+ */
+if (process.env.NODE_ENV === "development") {
+  console.log("Dev API", process.env.NODE_ENV);
+  baseURL = process.env.VUE_APP_DEV_API_BASE_URL;
+}
+if (process.env.NODE_ENV === "production") {
+  console.log("Prod API", process.env.NODE_ENV);
+  baseURL = `https://${document.location.hostname}/.netlify/functions`;
+}
+
+/**
+ * Get top 20 trending movies from MovieDB API
+ */
 async function getMovies(): Promise<TrendingMovies> {
-  const trendingMovies = await axios.get(
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
-  );
+  const trendingMovies = await axios.get(`${baseURL}/movies`);
 
-  console.log("got movies", trendingMovies.data);
   (trendingMovies.data as TrendingMovies).results.forEach((movie) => {
     movieList.value.push(movie);
   });
   return trendingMovies.data;
 }
 
-export { movieList, getMovies };
+/**
+ * Get movie recomendations
+ */
+
+async function getMovieRecomendation(): Promise<any> {
+  const recomendations = axios.get(`${baseURL}/movies-recomendations`);
+  return recomendations;
+}
+
+export { movieList, getMovies, getMovieRecomendation };

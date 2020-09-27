@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "declaration": false,
+    "outDir": "built",
+    "strict": true,
+    "allowJs": true,
+    "sourceMap": false,
+  },
+  "types": [
+    "jest"
+  ],
+  "include": [
+    "./**/*"
+  ],
+  "exclude": [
+    "built",
+    "**/*.spec.ts"
+  ]
+}
