@@ -1,6 +1,4 @@
-/* eslint-disable no-inner-declarations */
 import { APIGatewayProxyEvent, APIGatewayProxyCallback } from "aws-lambda";
-import axios from "axios";
 
 export const handler = async function (
   event: APIGatewayProxyEvent,
@@ -8,23 +6,30 @@ export const handler = async function (
   callback: APIGatewayProxyCallback
 ): Promise<void> {
   try {
-    if (event.httpMethod === "POST") {
-      const API_KEY = process.env.VUE_APP_MOVIE_DB_API_KEY;
-      // const recomendationsPayload: any[] = [];
+    if (event.httpMethod === "GET") {
+      // const API_KEY = process.env.VUE_APP_MOVIE_DB_API_KEY;
+      console.log("working...");
 
-      // extract movie Ids from body payload
-      const movieIds: { ids: number[] } = await JSON.parse(
-        event.body as string
-      );
+      // extract movie Ids from query param
+      const queryParam = event.queryStringParameters;
+      const movieId = queryParam.id as unknown;
 
-      const recomendations = await axios.get(
-        `https://api.themoviedb.org/3/movie/${movieIds.ids[0]}/recommendations?api_key=${API_KEY}`
-      );
+      console.log("what are the params?", movieId);
+
+      if (!movieId) {
+        return callback(null, {
+          statusCode: 401,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            error: "no movie id was provided",
+          }),
+        });
+      }
 
       return callback(null, {
         statusCode: 200,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ msg: recomendations.data }),
+        body: JSON.stringify({ msg: "movie Id :" + movieId }),
       });
     } else {
       return callback(null, {
