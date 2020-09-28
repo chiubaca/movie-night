@@ -1,12 +1,5 @@
 <template>
-  <!-- 
-    Depreciated this component but did'nt have the heart to delete this 💔
-    Has been replaced by Movies.vue
-   -->
   <div class="movies">
-    <span v-for="(movie, key) in selectedMovies" :key="key">
-      {{ movie.original_title }}
-    </span>
     <div id="movies-container" class="flex flex-wrap flex-1 justify-evenly">
       <MovieCard
         v-for="(movie, key) in movieList"
@@ -14,7 +7,6 @@
         :index="key"
         :movie="movie"
         @select-movie="handleSelectedMovie"
-        @deselect-movie="handleDeselectedMovie"
       />
       <button
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4"
@@ -28,10 +20,11 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import MovieCard from "../components/MovieCard.vue";
+import router from "../router";
 import {
   getMovies,
   movieList,
-  getMovieRecomendation,
+  // getMovieRecomendation,
 } from "../functions/useMovieAPI";
 import { Movie } from "../types";
 
@@ -44,21 +37,12 @@ export default defineComponent({
     const selectedMovies = ref<{ [key: number]: Movie }>({});
 
     function handleSelectedMovie(payload: [number, Movie]): void {
-      console.log("checked movie", payload);
+      console.log("checked movie", payload[1].id);
       selectedMovies.value[payload[0]] = payload[1];
-    }
-
-    function handleDeselectedMovie(payload: [number, Movie]): void {
-      console.log("unchecked movie", payload);
-      delete selectedMovies.value[payload[0]];
-    }
-
-    function recomendMovies(): void {
-      const movieIds: number[] = [];
-      for (const key in selectedMovies.value) {
-        movieIds.push(selectedMovies.value[key].id);
-      }
-      getMovieRecomendation(movieIds);
+      router.push({
+        path: "/movies/recommendations",
+        query: { id: String(payload[1].id) },
+      });
     }
 
     onMounted(() => {
@@ -68,9 +52,6 @@ export default defineComponent({
     return {
       movieList,
       handleSelectedMovie,
-      handleDeselectedMovie,
-      selectedMovies,
-      recomendMovies,
     };
   },
 });
