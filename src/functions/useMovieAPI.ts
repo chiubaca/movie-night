@@ -31,12 +31,12 @@ async function getMovies(): Promise<TrendingMovies> {
 
 /**
  * Get movie recomendations
+ * TODO: make type safe
  */
-
-async function getMovieRecomendation(movieIds: number[]): Promise<any> {
-  const recomendations = axios.post(`${baseURL}/movie-recomendations`, {
-    ids: movieIds,
-  });
+async function getMovieRecomendation(movieId: any): Promise<any> {
+  const recomendations = axios.get(
+    `${baseURL}/movie-recomendations?id=${movieId}`
+  );
   return recomendations;
 }
 
