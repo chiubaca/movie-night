@@ -31,13 +31,22 @@ async function getMovies(): Promise<TrendingMovies> {
 
 /**
  * Get movie recomendations
- * TODO: make type safe
  */
-async function getMovieRecomendation(movieId: any): Promise<any> {
-  const recomendations = axios.get(
-    `${baseURL}/movie-recomendations?id=${movieId}`
-  );
-  return recomendations;
+async function getMovieRecomendation(movieId: any): Promise<Movie[]> {
+  try {
+    const recomendations = await axios.get(
+      `${baseURL}/movie-recomendations?id=${movieId}`
+    );
+    if (recomendations.data.error) {
+      console.log("no data for this movie ID");
+      return [];
+    }
+
+    return recomendations.data.results;
+  } catch (err) {
+    console.error("There was problem with the API", err);
+    return [];
+  }
 }
 
 export { movieList, getMovies, getMovieRecomendation };
