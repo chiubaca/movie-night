@@ -1,25 +1,32 @@
 <template>
   <h1>Recomendation page</h1>
-  <div></div>
+  <div v-for="(movie, key) in recomendedMovies" :key="key">
+    {{ movie.original_title }}
+  </div>
 </template>
 
 <script lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { getMovieRecomendation } from "../functions/useMovieAPI";
+import { Movie } from "../types";
 
 export default {
   setup() {
     const route = useRoute();
+    const recomendedMovies = ref<Movie[]>([]);
 
     onMounted(() => {
-      console.log("movie id is:", route.query.id);
-      // TODO : Make type safe via some type assertions on route.query.id
       const movieId = route.query.id;
-      getMovieRecomendation(movieId);
+      getMovieRecomendation(movieId).then((resp) => {
+        console.log("GOT MOVIES", resp);
+        resp.forEach((movie) => {
+          recomendedMovies.value.push(movie);
+        });
+      });
     });
 
-    return {};
+    return { recomendedMovies };
   },
 };
 </script>
