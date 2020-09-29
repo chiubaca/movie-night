@@ -1,5 +1,8 @@
 <template>
   <div class="movies">
+    <h3 class="text-center text-sm">
+      Select a movie you have previously enjoyed.
+    </h3>
     <div id="movies-container" class="flex flex-wrap flex-1 justify-evenly">
       <MovieCard
         v-for="(movie, key) in movieList"
@@ -8,11 +11,6 @@
         :movie="movie"
         @select-movie="handleSelectedMovie"
       />
-      <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4"
-      >
-        Recomend Me Some Movies!
-      </button>
     </div>
   </div>
 </template>

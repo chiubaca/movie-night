@@ -1,8 +1,10 @@
 <template>
-  <h1>Recomendation page</h1>
-  <div v-for="(movie, key) in recomendedMovies" :key="key">
-    {{ movie.original_title }}
-  </div>
+  <main class="text-center">
+    <h1 class="text-xl p-5">Want to watch any of these?</h1>
+    <div v-for="(movie, key) in recomendedMovies" :key="key">
+      {{ movie.original_title }}
+    </div>
+  </main>
 </template>
 
 <script lang="ts">
