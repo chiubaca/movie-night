@@ -1,7 +1,17 @@
 <template>
-  <main class="text-center flex flex-col items-center">
-    <h1 class="text-xl p-5">Want to watch any of these?</h1>
-    <MovieCardsStack :movies="recomendedMovies" />
+  <main class="text-center">
+    <h3 class="text-xl p-5">Want to watch any of these?</h3>
+    <div id="deck" class="flex justify-around items-baseline h-64">
+      <div id="yes" class="">
+        <span class="bg-green-400 p-5 rounded-lg">Yeah!😀</span>
+      </div>
+      <div id="recommended-movies-container" class="w-1/4">
+        <MovieCardsStack :movies="recomendedMovies" />
+      </div>
+      <div id="no" class="">
+        <span class="bg-red-400 p-5 rounded-lg">Nah🥱</span>
+      </div>
+    </div>
   </main>
 </template>
 
