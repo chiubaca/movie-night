@@ -1,12 +1,6 @@
 // GameCardsStack.vue
 <template>
-  <!-- Wrap movie component so we can inject position styling -->
-  <div
-    v-for="(movie, index) in movies"
-    id="movie-card-wrapper"
-    :key="index"
-    class="flex flex-col items-center"
-  >
+  <div v-for="(movie, index) in movies" :key="index" class="">
     <SwipeableMovieCard :movie="movie" :is-current="index === 0" />
   </div>
 </template>
