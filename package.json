@@ -16,6 +16,7 @@
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
+    "@interactjs/types": "^1.10.0",
     "@types/aws-lambda": "^8.10.62",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
