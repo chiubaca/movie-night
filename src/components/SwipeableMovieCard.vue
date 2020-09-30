@@ -1,9 +1,9 @@
 <template>
-  <div id="movie-card" ref="interactElement" class="w-1/2">
+  <div id="movie-card" ref="interactElement" class="">
     <div id="mask" class="bg-red-700 relative m-4">
       <label>
         <h2
-          class="hover:text-white text-center absolute hover:bg-orange-600 hover:bg-opacity-50 w-full h-full text-transparent cursor-pointer"
+          class="hover:text-white text-center absolute hover:bg-orange-500 hover:bg-opacity-50 w-full h-full text-transparent cursor-pointer"
         >
           {{ movie.title }}
         </h2>
