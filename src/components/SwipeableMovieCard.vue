@@ -1,22 +1,11 @@
 <template>
-  <div id="movie-card" ref="interactElement" class="">
-    <div id="mask" class="bg-red-700 relative m-4">
-      <label>
-        <h2
-          class="hover:text-white text-center absolute hover:bg-orange-500 hover:bg-opacity-50 w-full h-full text-transparent cursor-pointer"
-        >
-          {{ movie.title }}
-        </h2>
-
-        <img
-          loading="lazy"
-          :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-          :alt="movie.title"
-          class=""
-        />
-      </label>
-    </div>
-  </div>
+  <img
+    ref="interactElement"
+    loading="lazy"
+    :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+    :alt="movie.title"
+    class="absolute h-64"
+  />
 </template>
 
 <script lang="ts">
