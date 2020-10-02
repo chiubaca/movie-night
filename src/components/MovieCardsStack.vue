@@ -1,8 +1,11 @@
-// GameCardsStack.vue
 <template>
-  <div v-for="(movie, index) in movies" :key="index" class="">
-    <SwipeableMovieCard :movie="movie" :is-current="index === 0" />
-  </div>
+  <SwipeableMovieCard
+    v-for="(movie, index) in movies"
+    :key="index"
+    class=""
+    :movie="movie"
+    :is-current="index === 0"
+  />
 </template>
 
 <script lang="ts">
