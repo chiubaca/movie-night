@@ -7,40 +7,58 @@
       </button>
 
       <div id="recommended-movies-container" class="w-1/4">
-        <MovieCardsStack :movies="recommendedMovies" />
+        <MovieCardsStack
+          :movies="recommendedMovies"
+          @add-movie="addToWatchList"
+          @reject-movie="dropMovie"
+        />
       </div>
 
-      <button class="bg-red-400 p-5 rounded-lg">Nah🥱</button>
+      <button class="bg-red-400 p-5 rounded-lg" @click="dropMovie">
+        Nah🥱
+      </button>
+    </div>
+    <div id="watchlist-container">
+      <h3>Watch List</h3>
+      <div v-for="(movie, index) in watchList" :key="index">
+        <p>{{ movie.title }}</p>
+      </div>
     </div>
   </main>
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import MovieCardsStack from "@/components/MovieCardsStack.vue";
 import { getMovieRecomendation } from "@/functions/useMovieAPI";
 import { Movie } from "@/types";
 
-export default {
+export default defineComponent({
   components: {
     MovieCardsStack,
   },
   setup() {
     const route = useRoute();
     const recommendedMovies = ref<Movie[]>([]);
-    // const watchList = ref<Movie[]>([]);
+    const watchList = ref<any[]>([]);
 
-    const populateRecommendedMovies = function (movies: Movie[]): void {
+    function populateRecommendedMovies(movies: Movie[]): void {
       movies.forEach((movie) => {
         recommendedMovies.value.push(movie);
       });
-    };
+    }
 
-    const addToWatchList = function () {
-      console.log("shifting movie");
+    function addToWatchList(): void {
+      console.log("add to watch list");
+      const movie = recommendedMovies.value.pop();
+      watchList.value.push(movie);
+    }
+
+    function dropMovie(): void {
+      console.log("dropped movie");
       recommendedMovies.value.pop();
-    };
+    }
 
     onMounted(() => {
       const movieId = route.query.id;
@@ -50,9 +68,9 @@ export default {
       });
     });
 
-    return { recommendedMovies, addToWatchList };
+    return { recommendedMovies, addToWatchList, dropMovie, watchList };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped></style>
