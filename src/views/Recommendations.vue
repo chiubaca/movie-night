@@ -16,15 +16,11 @@
 </template>
 
 <script lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import MovieCardsStack from "@/components/MovieCardsStack.vue";
 import { getMovieRecomendation } from "@/functions/useMovieAPI";
-import {
-  recommendedMovies,
-  populateRecommendedMovies,
-  addToWatchList,
-} from "@/functions/useCardDeck";
+import { Movie } from "@/types";
 
 export default {
   components: {
@@ -32,6 +28,19 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const recommendedMovies = ref<Movie[]>([]);
+    // const watchList = ref<Movie[]>([]);
+
+    const populateRecommendedMovies = function (movies: Movie[]): void {
+      movies.forEach((movie) => {
+        recommendedMovies.value.push(movie);
+      });
+    };
+
+    const addToWatchList = function () {
+      console.log("shifting movie");
+      recommendedMovies.value.pop();
+    };
 
     onMounted(() => {
       const movieId = route.query.id;
