@@ -25,7 +25,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const lastMovieIndex = computed(() => return props.movies.length - 1);
+    const lastMovieIndex = computed(() => props.movies.length - 1);
 
     return { lastMovieIndex };
   },
