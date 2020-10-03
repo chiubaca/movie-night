@@ -2,7 +2,6 @@
   <SwipeableMovieCard
     v-for="(movie, index) in movies"
     :key="index"
-    class=""
     :movie="movie"
     :is-current="index === lastMovieIndex"
     @add-movie="$emit('add-movie', movie)"
