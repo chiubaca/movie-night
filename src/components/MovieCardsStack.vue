@@ -4,16 +4,17 @@
     :key="index"
     class=""
     :movie="movie"
-    :is-current="index === 0"
+    :is-current="index === lastMovieIndex"
   />
 </template>
 
 <script lang="ts">
-import { PropType } from "vue";
+import { defineComponent, PropType, computed } from "vue";
 import SwipeableMovieCard from "@/components/SwipeableMovieCard.vue";
 import { Movie } from "@/types";
 
-export default {
+export default defineComponent({
+  name: "MovieCardStack",
   components: {
     SwipeableMovieCard,
   },
@@ -23,5 +24,10 @@ export default {
       required: true,
     },
   },
-};
+  setup(props) {
+    const lastMovieIndex = computed(() => return props.movies.length - 1);
+
+    return { lastMovieIndex };
+  },
+});
 </script>
