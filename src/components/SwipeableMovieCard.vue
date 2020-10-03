@@ -34,7 +34,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup() {
     const staticVals = {
       interactMaxRotation: 15,
       interactOutOfSightXCoordinate: 500,
@@ -67,25 +67,24 @@ export default defineComponent({
 
     onMounted(() => {
       console.log("Mounted!");
-      if (props.isCurrent) {
-        interact(interactElement.value).draggable({
-          listeners: {
-            start() {
-              // console.log("interact event", event.type, event.target);
-            },
-            move(event: Interact.InteractEvent) {
-              const { interactMaxRotation, interactXThreshold } = staticVals;
 
-              const x = (position.x += event.dx);
-              const y = (position.y += event.dy);
-              const rotation = interactMaxRotation * (x / interactXThreshold);
-
-              // event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
-              interactSetPosition({ x, y, rotation });
-            },
+      interact(interactElement.value).draggable({
+        listeners: {
+          start() {
+            // console.log("interact event", event.type, event.target);
           },
-        });
-      }
+          move(event: Interact.InteractEvent) {
+            const { interactMaxRotation, interactXThreshold } = staticVals;
+
+            const x = (position.x += event.dx);
+            const y = (position.y += event.dy);
+            const rotation = interactMaxRotation * (x / interactXThreshold);
+
+            // event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
+            interactSetPosition({ x, y, rotation });
+          },
+        },
+      });
     });
 
     onBeforeUnmount(() => {
