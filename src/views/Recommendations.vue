@@ -1,8 +1,12 @@
 <template>
   <main class="text-center">
     <h3 class="text-xl p-5">Want to watch any of these?</h3>
-    <div id="deck" class="flex justify-around items-baseline h-64">
-      <button class="bg-green-400 p-5 rounded-lg" @click="addToWatchList">
+    <h4>👈Swipe left to save | Swipe right to see next 👉</h4>
+    <div id="deck" class="flex justify-around justify-items-center">
+      <button
+        class="bg-green-400 hover:bg-green-500 p-5 rounded-lg"
+        @click="addToWatchList"
+      >
         Yeah!😀
       </button>
 
@@ -14,7 +18,10 @@
         />
       </div>
 
-      <button class="bg-red-400 p-5 rounded-lg" @click="dropMovie">
+      <button
+        class="bg-red-400 hover:bg-red-500 p-5 rounded-lg"
+        @click="dropMovie"
+      >
         Nah🥱
       </button>
     </div>
