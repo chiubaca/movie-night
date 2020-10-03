@@ -5,6 +5,8 @@
     class=""
     :movie="movie"
     :is-current="index === lastMovieIndex"
+    @add-movie="$emit('add-movie', movie)"
+    @reject-movie="$emit('reject-movie', movie)"
   />
 </template>
 
@@ -18,6 +20,7 @@ export default defineComponent({
   components: {
     SwipeableMovieCard,
   },
+  emits: ["add-movie", "reject-movie"],
   props: {
     movies: {
       type: Array as PropType<Movie[]>,
