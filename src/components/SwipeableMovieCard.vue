@@ -78,21 +78,21 @@ export default defineComponent({
     /**
      * Reset position of movie card
      */
-    function resetCardPosition() {
+    function resetCardPosition(): void {
       interactSetPosition({ x: 0, y: 0, rotation: 0 });
     }
 
     /**
      * Remove interact.js properties  and events from reference element
      */
-    function interactUnsetElement() {
+    function interactUnsetElement(): void {
       interact(interactElement.value).unset();
     }
 
     /**
      * Handle conditions when cards have been moved into specfic position
      */
-    function handleMoviePlacement(interaction: string) {
+    function handleMoviePlacement(interaction: string): void {
       interactUnsetElement();
       switch (interaction) {
         case "ACCEPT_CARD":
@@ -110,7 +110,7 @@ export default defineComponent({
       interact(interactElement.value).draggable({
         inertia: true,
         listeners: {
-          move(event: Interact.InteractEvent) {
+          move(event: Interact.InteractEvent): void {
             const { interactMaxRotation, interactXThreshold } = staticVals;
 
             // Bind the cursor event position to vue state
