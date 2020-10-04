@@ -1,16 +1,22 @@
 <template>
-  <main class="text-center">
+  <main id="recomendations-container" class="text-center">
     <h3 class="text-xl p-5">Want to watch any of these?</h3>
-    <h4>👈Swipe left to save | Swipe right to see next 👉</h4>
-    <div id="deck" class="flex justify-around justify-items-center">
-      <button
-        class="bg-green-400 hover:bg-green-500 p-5 rounded-lg"
+    <h4></h4>
+    <div
+      id="swipe-deck"
+      class="flex justify-around justify-items-center items-center"
+    >
+      <div
+        class="bg-green-300 w-1/6 m-1 rounded-full p-1"
         @click="addToWatchList"
       >
-        Yeah!😀
-      </button>
+        👈
+      </div>
 
-      <div id="recommended-movies-container" class="w-1/4">
+      <div
+        id="recommended-movies-container"
+        class="w-4/6 flex-grow flex justify-center"
+      >
         <MovieCardsStack
           :movies="recommendedMovies"
           @add-movie="addToWatchList"
@@ -18,11 +24,22 @@
         />
       </div>
 
+      <div class="bg-red-300 w-1/6 m-1 rounded-full p-1" @click="dropMovie">
+        👉
+      </div>
+    </div>
+    <div id="buttons-container" class="flex justify-around m-5">
       <button
-        class="bg-red-400 hover:bg-red-500 p-5 rounded-lg"
+        class="bg-green-400 hover:bg-green-500 rounded-full h-16 w-16"
+        @click="addToWatchList"
+      >
+        ✅
+      </button>
+      <button
+        class="bg-red-400 hover:bg-red-500 rounded-full h-16 w-16"
         @click="dropMovie"
       >
-        Nah🥱
+        ❌
       </button>
     </div>
     <div id="watchlist-container">
