@@ -19,13 +19,13 @@ export default defineComponent({
   components: {
     SwipeableMovieCard,
   },
-  emits: ["add-movie", "reject-movie"],
   props: {
     movies: {
       type: Array as PropType<Movie[]>,
       required: true,
     },
   },
+  emits: ["add-movie", "reject-movie"],
   setup(props) {
     const lastMovieIndex = computed(() => props.movies.length - 1);
 
