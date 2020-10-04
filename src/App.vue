@@ -4,8 +4,8 @@
       <span class="hover:border-black border-b-4">Films 🎥</span>
     </router-link>
   </nav>
-  <h1 class="text-center text-2xl font-bold">Whatch</h1>
-  <h2 class="text-center text-l font-bold p-2">🤔 What to Watch? 🤔</h2>
+  <h1 class="text-center text-2xl font-bold font-serif">Whatch</h1>
+  <h2 class="text-center text-l font-hairline">What Do You Want To Watch?</h2>
   <router-view />
 </template>
 
