@@ -48,7 +48,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const recommendedMovies = ref<Movie[]>([]);
-    const watchList = ref<any[]>([]);
+    const watchList = ref<Movie[]>([]);
 
     function populateRecommendedMovies(movies: Movie[]): void {
       movies.forEach((movie) => {
@@ -59,6 +59,10 @@ export default defineComponent({
     function addToWatchList(): void {
       console.log("add to watch list");
       const movie = recommendedMovies.value.pop();
+      if (movie === undefined) {
+        console.warn("nothing to add to watch list");
+        return;
+      }
       watchList.value.push(movie);
     }
 
