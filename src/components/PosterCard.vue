@@ -1,6 +1,6 @@
 <template>
   <div
-    id="movie-card"
+    id="show-card"
     class="w-1/2 md:w-1/4 lg:w-1/5"
     @click="selected = !selected"
   >
@@ -9,13 +9,13 @@
         <h2
           class="hover:text-white text-center absolute hover:bg-orange-600 hover:bg-opacity-50 w-full h-full text-transparent cursor-pointer"
         >
-          {{ movie.title }}
+          {{ show.title }}
         </h2>
 
         <img
           loading="lazy"
-          :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-          :alt="movie.title"
+          :src="`https://image.tmdb.org/t/p/w500/${show.poster_path}`"
+          :alt="show.title"
           class=""
         />
       </label>
@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { ref, defineComponent, PropType, watch } from "vue";
-import { Movie } from "../types";
+import { Show } from "../types";
 
 export default defineComponent({
   props: {
@@ -33,21 +33,21 @@ export default defineComponent({
       type: Number,
       required: true,
     },
-    movie: {
-      type: Object as PropType<Movie>,
+    show: {
+      type: Object as PropType<Show>,
       required: true,
     },
   },
-  emits: ["select-movie", "deselect-movie"],
+  emits: ["select-show", "deselect-show"],
   setup(props, { emit }) {
     const selected = ref(false);
 
     watch(selected, (selected) => {
       if (selected) {
-        emit("select-movie", [props.index, props.movie]);
+        emit("select-show", [props.index, props.show]);
         return;
       }
-      emit("deselect-movie", [props.index, props.movie]);
+      emit("deselect-show", [props.index, props.show]);
     });
 
     return { selected };
