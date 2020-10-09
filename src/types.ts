@@ -1,4 +1,4 @@
-export interface Movie {
+export interface Show {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -19,9 +19,9 @@ export interface Movie {
   original_name: string;
 }
 
-export interface TrendingMovies {
+export interface TrendingShows {
   page: number;
-  results: Movie[];
+  results: Show[];
   total_pages: number;
   total_results: number;
 }
