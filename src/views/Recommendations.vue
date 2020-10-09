@@ -17,10 +17,10 @@
         id="recommended-movies-container"
         class="w-4/6 flex-grow flex justify-center"
       >
-        <MovieCardsStack
-          :movies="recommendedMovies"
-          @add-movie="addToWatchList"
-          @reject-movie="dropMovie"
+        <ShowCardsStack
+          :shows="recommendedShows"
+          @add-show="addToWatchList"
+          @reject-show="dropMovie"
         />
       </div>
 
@@ -54,28 +54,28 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import MovieCardsStack from "@/components/MovieCardsStack.vue";
+import ShowCardsStack from "@/components/ShowCardsStack.vue";
 import { getMovieRecomendation } from "@/functions/useMovieAPI";
-import { Movie } from "@/types";
+import { Show } from "@/types";
 
 export default defineComponent({
   components: {
-    MovieCardsStack,
+    ShowCardsStack,
   },
   setup() {
     const route = useRoute();
-    const recommendedMovies = ref<Movie[]>([]);
-    const watchList = ref<Movie[]>([]);
+    const recommendedShows = ref<Show[]>([]);
+    const watchList = ref<Show[]>([]);
 
-    function populateRecommendedMovies(movies: Movie[]): void {
+    function populateRecommendedMovies(movies: Show[]): void {
       movies.forEach((movie) => {
-        recommendedMovies.value.push(movie);
+        recommendedShows.value.push(movie);
       });
     }
 
     function addToWatchList(): void {
       console.log("add to watch list");
-      const movie = recommendedMovies.value.pop();
+      const movie = recommendedShows.value.pop();
       if (movie === undefined) {
         console.warn("nothing to add to watch list");
         return;
@@ -84,8 +84,8 @@ export default defineComponent({
     }
 
     function dropMovie(): void {
-      console.log("dropped movie");
-      recommendedMovies.value.pop();
+      console.log("dropped show");
+      recommendedShows.value.pop();
     }
 
     onMounted(() => {
@@ -96,7 +96,7 @@ export default defineComponent({
       });
     });
 
-    return { recommendedMovies, addToWatchList, dropMovie, watchList };
+    return { recommendedShows, addToWatchList, dropMovie, watchList };
   },
 });
 </script>
