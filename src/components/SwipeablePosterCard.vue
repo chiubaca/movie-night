@@ -3,8 +3,8 @@
     v-show="isCurrent"
     ref="interactElement"
     loading="lazy"
-    :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-    :alt="movie.title"
+    :src="`https://image.tmdb.org/t/p/w500/${show.poster_path}`"
+    :alt="show.title"
     :style="{ transform: transformString }"
   />
 </template>
@@ -20,21 +20,21 @@ import {
   onBeforeUnmount,
 } from "vue";
 import interact from "interactjs";
-import { Movie } from "../types";
+import { Show } from "../types";
 
 export default defineComponent({
-  name: "SwipeableMovieCard",
+  name: "SwipeablePosterCard",
   props: {
     isCurrent: {
       type: Boolean,
       required: true,
     },
-    movie: {
-      type: Object as PropType<Movie>,
+    show: {
+      type: Object as PropType<Show>,
       required: true,
     },
   },
-  emits: ["add-movie", "reject-movie"],
+  emits: ["add-show", "reject-show"],
   setup(props, { emit }) {
     const staticVals = {
       interactMaxRotation: 15,
@@ -97,11 +97,11 @@ export default defineComponent({
       switch (interaction) {
         case "ACCEPT_CARD":
           console.log("YES");
-          emit("add-movie");
+          emit("add-show");
           break;
         case "REJECT_CARD":
           console.log("NO");
-          emit("reject-movie");
+          emit("reject-show");
           break;
       }
     }
