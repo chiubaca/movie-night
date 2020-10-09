@@ -4,12 +4,12 @@
       Select a movie you have previously enjoyed.
     </h3>
     <div id="movies-container" class="flex flex-wrap flex-1 justify-evenly">
-      <MovieCard
+      <PosterCard
         v-for="(movie, key) in movieList"
         :key="key"
         :index="key"
-        :movie="movie"
-        @select-movie="handleSelectedMovie"
+        :show="movie"
+        @select-show="handleSelectedMovie"
       />
     </div>
   </div>
@@ -17,24 +17,24 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import MovieCard from "../components/MovieCard.vue";
+import PosterCard from "../components/PosterCard.vue";
 import router from "../router";
 import {
   getMovies,
   movieList,
   // getMovieRecomendation,
 } from "../functions/useMovieAPI";
-import { Movie } from "../types";
+import { Show } from "../types";
 
 export default defineComponent({
   name: "Films",
   components: {
-    MovieCard,
+    PosterCard,
   },
   setup() {
-    const selectedMovies = ref<{ [key: number]: Movie }>({});
+    const selectedMovies = ref<{ [key: number]: Show }>({});
 
-    function handleSelectedMovie(payload: [number, Movie]): void {
+    function handleSelectedMovie(payload: [number, Show]): void {
       console.log("checked movie", payload[1].id);
       selectedMovies.value[payload[0]] = payload[1];
       router.push({
