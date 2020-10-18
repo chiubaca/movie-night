@@ -55,7 +55,7 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import ShowCardsStack from "@/components/ShowCardsStack.vue";
-import { getMovieRecomendation } from "@/functions/useMovieAPI";
+import { getRecomendations } from "@/functions/useMovieAPI";
 import { Show } from "@/types";
 
 export default defineComponent({
@@ -89,9 +89,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      const movieId = route.query.id;
-      getMovieRecomendation(movieId).then((resp) => {
-        console.log("GOT MOVIES", resp);
+      // TODO Type narrowing and handle bad inputs
+      const showId = route.query.id;
+      const showType = route.query.type;
+      getRecomendations(showId, showType).then((resp) => {
+        console.log("Got recomendations", resp);
         populateRecommendedMovies(resp);
       });
     });
