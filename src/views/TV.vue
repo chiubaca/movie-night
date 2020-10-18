@@ -9,7 +9,7 @@
         :key="key"
         :index="key"
         :show="tv"
-        @select-movie="handleSelectedTvShow"
+        @select-show="handleSelectedTvShow"
       />
     </div>
   </div>
@@ -31,11 +31,11 @@ export default defineComponent({
     const selectedMovies = ref<{ [key: number]: Show }>({});
 
     function handleSelectedTvShow(payload: [number, Show]): void {
-      console.log("checked movie", payload[1].id);
+      console.log("checked tv", payload[1].id);
       selectedMovies.value[payload[0]] = payload[1];
       router.push({
-        path: "/tv/recommendations",
-        query: { id: String(payload[1].id) },
+        path: "/recommendations",
+        query: { id: String(payload[1].id), type: "tv" },
       });
     }
 
