@@ -1,6 +1,5 @@
+import { Component } from "vue";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import Movies from "../views/Movies.vue";
-import Recommendation from "../views/Recommendations.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,12 +9,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/movies",
     name: "Movies",
-    component: Movies,
+    component: (): Component => import("../views/Movies.vue"),
   },
   {
-    path: "/movies/recommendations",
+    path: "/tv",
+    name: "TV",
+    component: (): Component => import("../views/TV.vue"),
+  },
+  {
+    path: "/recommendations",
     name: "Recommendations",
-    component: Recommendation,
+    component: (): Component => import("../views/Recommendations.vue"),
   },
 ];
 

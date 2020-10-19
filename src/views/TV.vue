@@ -1,15 +1,15 @@
 <template>
-  <div class="movies">
+  <div class="tv-shows">
     <h3 class="text-center text-sm">
-      Select a movie you have previously enjoyed.
+      Select a tv show you have previously enjoyed.
     </h3>
     <div id="movies-container" class="flex flex-wrap flex-1 justify-evenly">
       <PosterCard
-        v-for="(movie, key) in movieList"
+        v-for="(tv, key) in tvList"
         :key="key"
         :index="key"
-        :show="movie"
-        @select-show="handleSelectedMovie"
+        :show="tv"
+        @select-show="handleSelectedTvShow"
       />
     </div>
   </div>
@@ -19,37 +19,33 @@
 import { defineComponent, onMounted, ref } from "vue";
 import PosterCard from "../components/PosterCard.vue";
 import router from "../router";
-import {
-  getMovies,
-  movieList,
-  // getMovieRecomendation,
-} from "../functions/useMovieAPI";
+import { getTvShows, tvList } from "../functions/useMovieAPI";
 import { Show } from "../types";
 
 export default defineComponent({
-  name: "Films",
+  name: "TVShows",
   components: {
     PosterCard,
   },
   setup() {
     const selectedMovies = ref<{ [key: number]: Show }>({});
 
-    function handleSelectedMovie(payload: [number, Show]): void {
-      console.log("checked movie", payload[1].id);
+    function handleSelectedTvShow(payload: [number, Show]): void {
+      console.log("checked tv", payload[1].id);
       selectedMovies.value[payload[0]] = payload[1];
       router.push({
         path: "/recommendations",
-        query: { id: String(payload[1].id), type: "movie" },
+        query: { id: String(payload[1].id), type: "tv" },
       });
     }
 
     onMounted(() => {
-      getMovies();
+      getTvShows();
     });
 
     return {
-      movieList,
-      handleSelectedMovie,
+      tvList,
+      handleSelectedTvShow,
     };
   },
 });

@@ -14,10 +14,12 @@ export const handler = async function (
       const API_KEY = process.env.VUE_APP_MOVIE_DB_API_KEY;
 
       // Extract movie Ids from query param
-      const queryParam = event.queryStringParameters?.id as string;
+      const movieIdParam = event.queryStringParameters?.id as string;
+      const showTypeIdParam = event.queryStringParameters?.type as string;
 
+      console.log("params provided", movieIdParam, showTypeIdParam);
       // Check if id param was provided if not throw error
-      if (!queryParam) {
+      if (!movieIdParam) {
         return callback(null, {
           statusCode: 401,
           headers: { "Content-Type": "application/json" },
@@ -27,14 +29,25 @@ export const handler = async function (
         });
       }
 
+      // Check if show type param was provided if not throw error
+      if (!showTypeIdParam) {
+        return callback(null, {
+          statusCode: 401,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            error: "no show type was provided",
+          }),
+        });
+      }
+
       // Type check on query param to ensure it is a number
-      const movieId: number | false = isNaN(Number(queryParam))
+      const showId: number | false = isNaN(Number(movieIdParam))
         ? false
-        : Number(queryParam);
+        : Number(movieIdParam);
 
       // Throw error if provided id was not a number
-      if (movieId === false) {
-        console.log("empy id", queryParam);
+      if (showId === false) {
+        console.log("empty id", movieIdParam);
         return callback(null, {
           statusCode: 401,
           headers: { "Content-Type": "application/json" },
@@ -44,13 +57,40 @@ export const handler = async function (
         });
       }
 
-      // Make API call to MovieDB
-      const recommendedMovies = await axios.get(
-        `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}`
-      );
+      // Type check on showTypeIdParam to check it is either movie or tv
+      // TODO: Use TS Enum?
+      const showType: "movie" | "tv" | false =
+        showTypeIdParam === "movie" || showTypeIdParam === "tv"
+          ? showTypeIdParam
+          : false;
+
+      if (showType === false) {
+        console.log("not valid show type", showTypeIdParam);
+        return callback(null, {
+          statusCode: 401,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            error: "Not a valid show type",
+          }),
+        });
+      }
+
+      let recommendedShows;
+      if (showTypeIdParam === "movie") {
+        // Make API call to MovieDB
+        recommendedShows = await axios.get(
+          `https://api.themoviedb.org/3/movie/${showId}/recommendations?api_key=${API_KEY}`
+        );
+      }
+      if (showTypeIdParam === "tv") {
+        // Make API call to MovieDB
+        recommendedShows = await axios.get(
+          `https://api.themoviedb.org/3/tv/${showId}/recommendations?api_key=${API_KEY}`
+        );
+      }
 
       // Return error if MovieDB did not find a movie from ID
-      if (recommendedMovies.data.success === false) {
+      if (recommendedShows?.data.success === false) {
         return callback(null, {
           statusCode: 401,
           headers: { "Content-Type": "application/json" },
@@ -64,7 +104,7 @@ export const handler = async function (
       return callback(null, {
         statusCode: 200,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ results: recommendedMovies.data.results }),
+        body: JSON.stringify({ results: recommendedShows?.data.results }),
       });
     } else {
       return callback(null, {

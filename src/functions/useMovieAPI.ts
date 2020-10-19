@@ -1,8 +1,9 @@
 import { ref } from "vue";
 import axios from "axios";
-import { TrendingMovies, Movie } from "../types";
+import { TrendingShows, Show } from "../types";
 
-const movieList = ref<Movie[]>([]);
+const movieList = ref<Show[]>([]);
+const tvList = ref<Show[]>([]);
 let baseURL: string;
 
 /**
@@ -20,25 +21,42 @@ if (process.env.NODE_ENV === "production") {
 /**
  * Get top 20 trending movies from MovieDB API
  */
-async function getMovies(): Promise<TrendingMovies> {
+async function getMovies(): Promise<TrendingShows> {
   const trendingMovies = await axios.get(`${baseURL}/movies`);
 
-  (trendingMovies.data as TrendingMovies).results.forEach((movie) => {
+  (trendingMovies.data as TrendingShows).results.forEach((movie) => {
     movieList.value.push(movie);
   });
   return trendingMovies.data;
 }
 
 /**
- * Get movie recomendations
+ * Get top 20 trending TV shows from MovieDB API
  */
-async function getMovieRecomendation(movieId: any): Promise<Movie[]> {
+async function getTvShows(): Promise<TrendingShows> {
+  const trendingTv = await axios.get(`${baseURL}/tv`);
+
+  (trendingTv.data as TrendingShows).results.forEach((tvShow) => {
+    tvList.value.push(tvShow);
+  });
+  return trendingTv.data;
+}
+
+/**
+ * Get recomendations on for supplied tv or movie
+ * @param showId movie db show id for either movie or tv
+ * @param showType movie or tv
+ */
+async function getRecomendations(
+  showId: unknown,
+  showType: unknown
+): Promise<Show[]> {
   try {
     const recomendations = await axios.get(
-      `${baseURL}/movie-recomendations?id=${movieId}`
+      `${baseURL}/recomendations?id=${showId}&type=${showType}`
     );
     if (recomendations.data.error) {
-      console.log("no data for this movie ID");
+      console.log("no data for this tv ID");
       return [];
     }
 
@@ -49,4 +67,4 @@ async function getMovieRecomendation(movieId: any): Promise<Movie[]> {
   }
 }
 
-export { movieList, getMovies, getMovieRecomendation };
+export { movieList, tvList, getMovies, getTvShows, getRecomendations };
