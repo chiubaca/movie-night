@@ -48,8 +48,8 @@ async function getTvShows(): Promise<TrendingShows> {
  * @param showType movie or tv
  */
 async function getRecomendations(
-  showId: unknown,
-  showType: unknown
+  showId: string,
+  showType: string
 ): Promise<Show[]> {
   try {
     const recomendations = await axios.get(

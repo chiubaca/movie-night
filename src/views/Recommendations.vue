@@ -89,16 +89,30 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      // TODO Type narrowing and handle bad inputs
       const showId = route.query.id;
       const showType = route.query.type;
-      getRecomendations(showId, showType).then((resp) => {
-        console.log("Got recomendations", resp);
-        populateRecommendedMovies(resp);
-      });
+
+      if (typeof showId === "string" && typeof showType === "string") {
+        getRecomendations(showId, showType)
+          .then((resp) => {
+            console.log("Got recomendations", resp);
+            populateRecommendedMovies(resp);
+          })
+          .catch((err) => {
+            alert("Problem getting movies");
+            console.error("Problem getting movies", err);
+          });
+        return;
+      }
+      console.warn("Not a valid query");
     });
 
-    return { recommendedShows, addToWatchList, dropMovie, watchList };
+    return {
+      recommendedShows,
+      addToWatchList,
+      dropMovie,
+      watchList,
+    };
   },
 });
 </script>
