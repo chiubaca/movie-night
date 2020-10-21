@@ -13,10 +13,7 @@
         👈
       </div>
 
-      <div
-        id="recommended-movies-container"
-        class="w-4/6 flex-grow flex justify-center"
-      >
+      <div id="recommended-movies-container" class="max-w-xs">
         <ShowCardsStack
           :shows="recommendedShows"
           @add-show="addToWatchList"
