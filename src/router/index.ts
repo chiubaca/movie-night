@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/watchlist",
-    name: "Recommendations",
+    name: "WatchList",
     component: (): Component => import("../views/WatchList.vue"),
   },
 ];
