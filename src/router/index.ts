@@ -21,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "Recommendations",
     component: (): Component => import("../views/Recommendations.vue"),
   },
+  {
+    path: "/watchlist",
+    name: "Recommendations",
+    component: (): Component => import("../views/WatchList.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -39,12 +39,6 @@
         ❌
       </button>
     </div>
-    <div id="watchlist-container">
-      <h3>Watch List</h3>
-      <div v-for="(movie, index) in watchList" :key="index">
-        <p>{{ movie.title }}</p>
-      </div>
-    </div>
   </main>
 </template>
 
