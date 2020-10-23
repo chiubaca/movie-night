@@ -25,8 +25,19 @@
         class="hover:border-black border-b-4"
         tabindex="0"
       >
-        Watch List📃
+        Watch List📃({{ watchList.length }})
       </router-link>
     </div>
   </nav>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { watchList } from "@/functions/useWatchList";
+
+export default defineComponent({
+  setup() {
+    return { watchList };
+  },
+});
+</script>
