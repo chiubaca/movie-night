@@ -47,6 +47,7 @@ import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import ShowCardsStack from "@/components/ShowCardsStack.vue";
 import { getRecomendations } from "@/functions/useMovieAPI";
+import { watchList } from "@/functions/useWatchList";
 import { Show } from "@/types";
 
 export default defineComponent({
@@ -56,7 +57,6 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const recommendedShows = ref<Show[]>([]);
-    const watchList = ref<Show[]>([]);
 
     function populateRecommendedMovies(movies: Show[]): void {
       movies.forEach((movie) => {
