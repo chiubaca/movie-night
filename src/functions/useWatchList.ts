@@ -1,6 +1,6 @@
 import { ref } from "vue";
-import { Show } from "../types";
+import { Movie } from "../types";
 
-const watchList = ref<Show[]>([]);
+const movieWatchList = ref<Movie[]>([]);
 
-export { watchList };
+export { movieWatchList };
