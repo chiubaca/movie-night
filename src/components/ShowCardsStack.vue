@@ -4,15 +4,15 @@
     :key="index"
     :show="show"
     :is-current="index === lastShowIndex"
-    @add-show="$emit('add-show', movie)"
-    @reject-show="$emit('reject-show', movie)"
+    @add-movie="$emit('add-movie', movie)"
+    @reject-movie="$emit('reject-movie', movie)"
   />
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from "vue";
 import SwipeablePosterCard from "@/components/SwipeablePosterCard.vue";
-import { Show } from "@/types";
+import { Movie } from "@/types";
 
 export default defineComponent({
   name: "MovieCardStack",
@@ -21,11 +21,11 @@ export default defineComponent({
   },
   props: {
     shows: {
-      type: Array as PropType<Show[]>,
+      type: Array as PropType<Movie[]>,
       required: true,
     },
   },
-  emits: ["add-show", "reject-show"],
+  emits: ["add-movie", "reject-movie"],
   setup(props) {
     const lastShowIndex = computed(() => props.shows.length - 1);
 
