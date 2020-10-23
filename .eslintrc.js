@@ -4,7 +4,7 @@ module.exports = {
     browser: true,
     node: true,
   },
-  plugins: ["prettier"],
+  plugins: ["prettier", "@typescript-eslint"],
   extends: [
     "plugin:@typescript-eslint/recommended",
     "plugin:vue/vue3-essential",

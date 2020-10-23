@@ -18,8 +18,8 @@
   "devDependencies": {
     "@interactjs/types": "^1.10.0",
     "@types/aws-lambda": "^8.10.62",
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
-    "@typescript-eslint/parser": "^2.33.0",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "^4.5.6",
@@ -29,13 +29,13 @@
     "@vue/eslint-config-typescript": "^5.0.2",
     "babel-eslint": "^10.1.0",
     "concurrently": "^5.2.0",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-vue": "^7.0.0-0",
     "netlify-cli": "^2.51.0",
     "prettier": "2.1.1",
-    "typescript": "~3.9.3",
+    "typescript": "^3.9.7",
     "vue-cli-plugin-tailwind": "^1.5.0"
   },
   "browserslist": [
