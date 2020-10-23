@@ -16,16 +16,12 @@
         Movies🎥
       </router-link>
       |
-      <router-link to="/tv" class="hover:border-black border-b-4" tabindex="0">
-        TV📺
-      </router-link>
-      |
       <router-link
         to="/watchlist"
         class="hover:border-black border-b-4"
         tabindex="0"
       >
-        Watch List📃({{ watchList.length }})
+        Watch List📃({{ movieWatchList.length }})
       </router-link>
     </div>
   </nav>
@@ -33,11 +29,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { watchList } from "@/functions/useWatchList";
+import { movieWatchList } from "@/functions/useWatchList";
 
 export default defineComponent({
   setup() {
-    return { watchList };
+    return { movieWatchList };
   },
 });
 </script>
