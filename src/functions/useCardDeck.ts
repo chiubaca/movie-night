@@ -10,7 +10,7 @@ const populateRecommendedMovies = function (movies: Movie[]): void {
   });
 };
 
-const addToWatchList = function () {
+const addToWatchList = function (): void {
   const movieToAdd = recommendedMovies.value.shift();
   console.log(movieToAdd);
   console.log(watchList);
