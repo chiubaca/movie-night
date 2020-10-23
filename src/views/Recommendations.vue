@@ -8,16 +8,16 @@
     >
       <div
         class="bg-green-300 w-1/6 m-1 rounded-full p-1"
-        @click="addToWatchList"
+        @click="addToMovieWatchList"
       >
         👈
       </div>
 
       <div id="recommended-movies-container" class="max-w-xs">
         <ShowCardsStack
-          :shows="recommendedShows"
-          @add-show="addToWatchList"
-          @reject-show="dropMovie"
+          :shows="recommendedMovies"
+          @add-movie="addToMovieWatchList"
+          @reject-movie="dropMovie"
         />
       </div>
 
@@ -28,7 +28,7 @@
     <div id="buttons-container" class="flex justify-around m-5">
       <button
         class="bg-green-400 hover:bg-green-500 rounded-full h-16 w-16"
-        @click="addToWatchList"
+        @click="addToMovieWatchList"
       >
         ✅
       </button>
@@ -46,9 +46,9 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import ShowCardsStack from "@/components/ShowCardsStack.vue";
-import { getRecomendations } from "@/functions/useMovieAPI";
-import { watchList } from "@/functions/useWatchList";
-import { Show } from "@/types";
+import { getMovieRecomendations } from "@/functions/useMovieAPI";
+import { movieWatchList } from "@/functions/useWatchList";
+import { Movie } from "@/types";
 
 export default defineComponent({
   components: {
@@ -56,35 +56,35 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
-    const recommendedShows = ref<Show[]>([]);
+    const recommendedMovies = ref<Movie[]>([]);
 
-    function populateRecommendedMovies(movies: Show[]): void {
+    function populateRecommendedMovies(movies: Movie[]): void {
       movies.forEach((movie) => {
-        recommendedShows.value.push(movie);
+        recommendedMovies.value.push(movie);
       });
     }
 
-    function addToWatchList(): void {
+    function addToMovieWatchList(): void {
       console.log("add to watch list");
-      const movie = recommendedShows.value.pop();
+      const movie = recommendedMovies.value.pop();
       if (movie === undefined) {
         console.warn("nothing to add to watch list");
         return;
       }
-      watchList.value.push(movie);
+      movieWatchList.value.push(movie);
     }
 
     function dropMovie(): void {
       console.log("dropped show");
-      recommendedShows.value.pop();
+      recommendedMovies.value.pop();
     }
 
     onMounted(() => {
-      const showId = route.query.id;
+      const movieId = route.query.id;
       const showType = route.query.type;
 
-      if (typeof showId === "string" && typeof showType === "string") {
-        getRecomendations(showId, showType)
+      if (typeof movieId === "string" && typeof showType === "string") {
+        getMovieRecomendations(movieId)
           .then((resp) => {
             console.log("Got recomendations", resp);
             populateRecommendedMovies(resp);
@@ -99,10 +99,10 @@ export default defineComponent({
     });
 
     return {
-      recommendedShows,
-      addToWatchList,
+      recommendedMovies,
+      addToMovieWatchList,
       dropMovie,
-      watchList,
+      movieWatchList,
     };
   },
 });
