@@ -2,7 +2,7 @@
   <SwipeablePosterCard
     v-for="(show, index) in shows"
     :key="index"
-    :show="show"
+    :movie="show"
     :is-current="index === lastShowIndex"
     @add-movie="$emit('add-movie', movie)"
     @reject-movie="$emit('reject-movie', movie)"
