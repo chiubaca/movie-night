@@ -51,6 +51,7 @@ import { movieWatchList } from "@/functions/useWatchList";
 import { Movie } from "@/types";
 
 export default defineComponent({
+  name: "MovieRecommendations",
   components: {
     ShowCardsStack,
   },
