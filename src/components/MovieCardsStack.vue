@@ -1,5 +1,5 @@
 <template>
-  <SwipeablePosterCard
+  <SwipeableMoviePosterCard
     v-for="(movie, index) in movies"
     :key="index"
     :movie="movie"
@@ -11,13 +11,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from "vue";
-import SwipeablePosterCard from "@/components/SwipeablePosterCard.vue";
+import SwipeableMoviePosterCard from "@/components/SwipeableMoviePosterCard.vue";
 import { Movie } from "@/types";
 
 export default defineComponent({
   name: "MovieCardsStack",
   components: {
-    SwipeablePosterCard,
+    SwipeableMoviePosterCard,
   },
   props: {
     movies: {

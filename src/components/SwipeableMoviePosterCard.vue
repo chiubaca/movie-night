@@ -23,7 +23,7 @@ import interact from "interactjs";
 import { Movie } from "../types";
 
 export default defineComponent({
-  name: "SwipeablePosterCard",
+  name: "SwipeableMoviePosterCard",
   props: {
     isCurrent: {
       type: Boolean,
