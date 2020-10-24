@@ -1,9 +1,9 @@
 <template>
   <SwipeablePosterCard
-    v-for="(show, index) in shows"
+    v-for="(movie, index) in movies"
     :key="index"
-    :movie="show"
-    :is-current="index === lastShowIndex"
+    :movie="movie"
+    :is-current="index === lastMovieIndex"
     @add-movie="$emit('add-movie', movie)"
     @reject-movie="$emit('reject-movie', movie)"
   />
@@ -15,21 +15,21 @@ import SwipeablePosterCard from "@/components/SwipeablePosterCard.vue";
 import { Movie } from "@/types";
 
 export default defineComponent({
-  name: "MovieCardStack",
+  name: "MovieCardsStack",
   components: {
     SwipeablePosterCard,
   },
   props: {
-    shows: {
+    movies: {
       type: Array as PropType<Movie[]>,
       required: true,
     },
   },
   emits: ["add-movie", "reject-movie"],
   setup(props) {
-    const lastShowIndex = computed(() => props.shows.length - 1);
+    const lastMovieIndex = computed(() => props.movies.length - 1);
 
-    return { lastShowIndex };
+    return { lastMovieIndex };
   },
 });
 </script>

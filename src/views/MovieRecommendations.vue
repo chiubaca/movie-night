@@ -14,8 +14,8 @@
       </div>
 
       <div id="recommended-movies-container" class="max-w-xs">
-        <ShowCardsStack
-          :shows="recommendedMovies"
+        <MovieCardsStack
+          :movies="recommendedMovies"
           @add-movie="addToMovieWatchList"
           @reject-movie="dropMovie"
         />
@@ -45,7 +45,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import ShowCardsStack from "@/components/ShowCardsStack.vue";
+import MovieCardsStack from "@/components/MovieCardsStack.vue";
 import { getMovieRecomendations } from "@/functions/useMovieAPI";
 import { movieWatchList } from "@/functions/useWatchList";
 import { Movie } from "@/types";
@@ -53,7 +53,7 @@ import { Movie } from "@/types";
 export default defineComponent({
   name: "MovieRecommendations",
   components: {
-    ShowCardsStack,
+    MovieCardsStack,
   },
   setup() {
     const route = useRoute();
@@ -108,5 +108,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped></style>
