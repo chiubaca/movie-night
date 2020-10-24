@@ -34,7 +34,7 @@ export default defineComponent({
       console.log("checked movie", payload[1].id);
       selectedMovies.value[payload[0]] = payload[1];
       router.push({
-        path: "/recommendations",
+        path: "/movie-recommendations",
         query: { id: String(payload[1].id), type: "movie" },
       });
     }
