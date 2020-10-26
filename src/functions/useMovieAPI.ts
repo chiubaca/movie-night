@@ -43,14 +43,34 @@ async function getTvShows(): Promise<TrendingTV> {
 }
 
 /**
- * Get recomendations on for supplied tv or movie
- * @param showId movie db show id for either movie or tv
- * @param showType movie or tv
+ * Get recomendations on for supplied movie id
+ * @param showId movie db movie id
  */
 async function getMovieRecomendations(showId: string): Promise<Movie[]> {
   try {
     const recomendations = await axios.get(
       `${baseURL}/recomendations?id=${showId}&type=movie`
+    );
+    if (recomendations.data.error) {
+      console.log("no data for this movie ID");
+      return [];
+    }
+
+    return recomendations.data.results;
+  } catch (err) {
+    console.error("There was problem with the API", err);
+    return [];
+  }
+}
+
+/**
+ * Get recomendations on for supplied tv id
+ * @param showId movie db show id for tv
+ */
+async function getTvRecomendations(showId: string): Promise<TV[]> {
+  try {
+    const recomendations = await axios.get(
+      `${baseURL}/recomendations?id=${showId}&type=tv`
     );
     if (recomendations.data.error) {
       console.log("no data for this tv ID");
@@ -64,4 +84,11 @@ async function getMovieRecomendations(showId: string): Promise<Movie[]> {
   }
 }
 
-export { movieList, tvList, getMovies, getTvShows, getMovieRecomendations };
+export {
+  movieList,
+  tvList,
+  getMovies,
+  getTvShows,
+  getMovieRecomendations,
+  getTvRecomendations,
+};
