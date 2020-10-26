@@ -16,6 +16,10 @@
         Movies🎥
       </router-link>
       |
+      <router-link to="/tv" class="hover:border-black border-b-4" tabindex="0">
+        TV📺
+      </router-link>
+      |
       <router-link
         to="/watchlist"
         class="hover:border-black border-b-4"
