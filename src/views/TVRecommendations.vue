@@ -14,14 +14,14 @@
       </div>
 
       <div id="recommended-movies-container" class="max-w-xs">
-        <MovieCardsStack
-          :movies="recommendedTv"
-          @add-movie="addToTvWatchList"
-          @reject-movie="dropTv"
+        <TVCardsStack
+          :tvShows="recommendedTv"
+          @add-tv="addToTvWatchList"
+          @reject-tv="dropTv"
         />
       </div>
 
-      <div class="bg-red-300 w-1/6 m-1 rounded-full p-1" @click="dropMovie">
+      <div class="bg-red-300 w-1/6 m-1 rounded-full p-1" @click="dropTv">
         👉
       </div>
     </div>
@@ -34,7 +34,7 @@
       </button>
       <button
         class="bg-red-400 hover:bg-red-500 rounded-full h-16 w-16"
-        @click="dropMovie"
+        @click="dropTv"
       >
         ❌
       </button>
@@ -45,7 +45,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import MovieCardsStack from "@/components/MovieCardsStack.vue";
+import TVCardsStack from "@/components/TVCardsStack.vue";
 import { getTvRecomendations } from "@/functions/useMovieAPI";
 import { tvWatchList } from "@/functions/useWatchList";
 import { TV } from "@/types";
@@ -53,7 +53,7 @@ import { TV } from "@/types";
 export default defineComponent({
   name: "TVRecommendations",
   components: {
-    MovieCardsStack,
+    TVCardsStack,
   },
   setup() {
     const route = useRoute();
