@@ -25,7 +25,7 @@
         class="hover:border-black border-b-4"
         tabindex="0"
       >
-        Watch List📃({{ movieWatchList.length }})
+        Watch List📃({{ movieWatchList.length + tvWatchList.length }})
       </router-link>
     </div>
   </nav>
@@ -33,11 +33,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { movieWatchList } from "@/functions/useWatchList";
+import { movieWatchList, tvWatchList } from "@/functions/useWatchList";
 
 export default defineComponent({
   setup() {
-    return { movieWatchList };
+    return { movieWatchList, tvWatchList };
   },
 });
 </script>
