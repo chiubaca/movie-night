@@ -1,15 +1,15 @@
 <template>
-  <div class="tv-shows">
+  <div id="tv-shows">
     <h3 class="text-center text-sm">
-      Select a tv show you have previously enjoyed.
+      Select a TV show you have previously enjoyed.
     </h3>
-    <div id="movies-container" class="flex flex-wrap flex-1 justify-evenly">
-      <PosterCard
+    <div id="tvshow-container" class="flex flex-wrap flex-1 justify-evenly">
+      <TVPosterCard
         v-for="(tv, key) in tvList"
         :key="key"
         :index="key"
-        :show="tv"
-        @select-show="handleSelectedTvShow"
+        :tv="tv"
+        @select-tv="handleSelectedTV"
       />
     </div>
   </div>
@@ -17,24 +17,24 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import PosterCard from "../components/PosterCard.vue";
+import TVPosterCard from "../components/TVPosterCard.vue";
 import router from "../router";
 import { getTvShows, tvList } from "../functions/useMovieAPI";
-import { Show } from "../types";
+import { TV } from "../types";
 
 export default defineComponent({
   name: "TVShows",
   components: {
-    PosterCard,
+    TVPosterCard,
   },
   setup() {
-    const selectedMovies = ref<{ [key: number]: Show }>({});
+    const selectedTV = ref<{ [key: number]: TV }>({});
 
-    function handleSelectedTvShow(payload: [number, Show]): void {
+    function handleSelectedTV(payload: [number, TV]): void {
       console.log("checked tv", payload[1].id);
-      selectedMovies.value[payload[0]] = payload[1];
+      selectedTV.value[payload[0]] = payload[1];
       router.push({
-        path: "/recommendations",
+        path: "/tv-recommendations",
         query: { id: String(payload[1].id), type: "tv" },
       });
     }
@@ -45,7 +45,7 @@ export default defineComponent({
 
     return {
       tvList,
-      handleSelectedTvShow,
+      handleSelectedTV,
     };
   },
 });

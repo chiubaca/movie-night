@@ -9,13 +9,13 @@
         <h2
           class="hover:text-white text-center absolute hover:bg-orange-600 hover:bg-opacity-50 w-full h-full text-transparent cursor-pointer"
         >
-          {{ show.title }}
+          {{ movie.title }}
         </h2>
 
         <img
           loading="lazy"
-          :src="`https://image.tmdb.org/t/p/w500/${show.poster_path}`"
-          :alt="show.title"
+          :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+          :alt="movie.title"
           class=""
         />
       </label>
@@ -25,29 +25,30 @@
 
 <script lang="ts">
 import { ref, defineComponent, PropType, watch } from "vue";
-import { Show } from "../types";
+import { Movie } from "../types";
 
 export default defineComponent({
+  name: "MoviePosterCard",
   props: {
     index: {
       type: Number,
       required: true,
     },
-    show: {
-      type: Object as PropType<Show>,
+    movie: {
+      type: Object as PropType<Movie>,
       required: true,
     },
   },
-  emits: ["select-show", "deselect-show"],
+  emits: ["select-movie", "deselect-movie"],
   setup(props, { emit }) {
     const selected = ref(false);
 
     watch(selected, (selected) => {
       if (selected) {
-        emit("select-show", [props.index, props.show]);
+        emit("select-movie", [props.index, props.movie]);
         return;
       }
-      emit("deselect-show", [props.index, props.show]);
+      emit("deselect-movie", [props.index, props.movie]);
     });
 
     return { selected };
